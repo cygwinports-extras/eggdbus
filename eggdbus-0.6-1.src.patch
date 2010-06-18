@@ -1,0 +1,49 @@
+--- origsrc/eggdbus-0.6/docs/tests/Makefile.am	2008-12-18 16:15:14.000000000 -0600
++++ src/eggdbus-0.6/docs/tests/Makefile.am	2010-06-15 03:26:05.086478100 -0500
+@@ -71,6 +71,9 @@ else
+ CLEANFILES =
+ endif
+ 
++install-data-local:
++	@true
++
+ CLEANFILES +=   *~				\
+ 		tests-scan.*			\
+ 		tests.*				\
+--- origsrc/eggdbus-0.6/src/eggdbus/Makefile.am	2009-02-06 14:46:49.000000000 -0600
++++ src/eggdbus-0.6/src/eggdbus/Makefile.am	2010-06-15 03:13:11.172212800 -0500
+@@ -88,9 +88,9 @@ eggdbus_binding_tool_CFLAGS =
+ 	$(NULL)
+ 
+ eggdbus_binding_tool_LDADD =  	               				\
++	libeggdbus-common.la						\
+ 	$(GLIB_LIBS)							\
+ 	$(DBUS_GLIB_LIBS)						\
+-	libeggdbus-common.la						\
+ 	$(NULL)
+ 
+ ###########################################################################
+@@ -129,7 +129,7 @@ BUILT_SOURCES =								\
+ 	eggdbus-built-sources.stamp					\
+ 	$(NULL)
+ 
+-eggdbus-built-sources.stamp : eggdbus-binding-tool Makefile.am org.freedesktop.DBus.xml org.freedesktop.DBus.Peer.xml org.freedesktop.DBus.Properties.xml org.freedesktop.DBus.Introspectable.xml eggdbus-glib-genmarshal
++eggdbus-built-sources.stamp : eggdbus-binding-tool$(EXEEXT) Makefile.am org.freedesktop.DBus.xml org.freedesktop.DBus.Peer.xml org.freedesktop.DBus.Properties.xml org.freedesktop.DBus.Introspectable.xml eggdbus-glib-genmarshal$(EXEEXT)
+ 	EGG_DBUS_GENMARSHAL=$(top_builddir)/src/eggdbus/eggdbus-glib-genmarshal $(top_builddir)/src/eggdbus/eggdbus-binding-tool							\
+ 		--namespace EggDBus									\
+ 		--dbus-namespace org.freedesktop.DBus							\
+@@ -207,10 +207,13 @@ libeggdbus_1_la_CFLAGS =						\
+ 	$(DBUS_GLIB_CFLAGS)						\
+ 	$(NULL)
+ 
++libeggdbus_1_la_LDFLAGS =						\
++	-no-undefined
++
+ libeggdbus_1_la_LIBADD =						\
++	libeggdbus-common.la						\
+ 	$(GLIB_LIBS)							\
+ 	$(DBUS_GLIB_LIBS)						\
+-	libeggdbus-common.la						\
+ 	$(NULL)
+ 
+ EXTRA_DIST = 								\

@@ -1,0 +1,5 @@
+inherit gnome2
+
+
+HOMEPAGE="http://cgit.freedesktop.org/~david/eggdbus"
+SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz"
